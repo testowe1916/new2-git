@@ -4,7 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test:html",
+	"test:html": "glob-run nu-html-checker *.html",
+
+	"build": "npm run build:sass && npm run build:autoprefixer && npm run test",
+	"build:sass": "sass --sourcemap=none --update sass:css",
+	"build:autoprefixer": "autoprefixer-cli css/style.css",
+
+	"watch:sass": "sass --watch sass:css",
+	"watch:autoprefixer": "onchange -d 100 css/style.css -- autoprefixer-cli -o css/style.prefixed.css css/style.css",
+	"watch:browsersync"
   },
   "repository": {
     "type": "git",
@@ -20,6 +29,7 @@
   "dependencies": {
     "autoprefixer-cli": "^1.0.0",
     "browser-sync": "^2.18.13",
+    "glob-run": "^0.1.6",
     "nu-html-checker": "^0.1.0"
   }
 }
